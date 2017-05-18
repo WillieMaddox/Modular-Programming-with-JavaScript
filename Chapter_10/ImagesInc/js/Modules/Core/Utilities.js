@@ -13,8 +13,7 @@ define(['MainCore'], function(ImagesInc_Core) {
                     newClonedObj[property] = this[property];
                 }
                 // to make a deep copy, call the function recursively
-            } else if (typeof this[property] == 'object' && this.hasOwnProperty(
-                property)) {
+            } else if (typeof this[property] == 'object' && this.hasOwnProperty(property)) {
                 newClonedObj[property] = this[property].clone(deep);
             } else if (this.hasOwnProperty(property)) {
                 //Just copy properties for non objects
@@ -23,6 +22,7 @@ define(['MainCore'], function(ImagesInc_Core) {
         }
         return newClonedObj;
     };
+    // not used?
     self.getFileNameFromPath = function(filePath) {
         var slashIndex, theLastIndex, fileName;
         slashIndex = filePath.indexOf("/");
@@ -49,24 +49,20 @@ define(['MainCore'], function(ImagesInc_Core) {
         }
         // attach the file to the page
         if (typeof fileElem !== "undefined") {
-            document.getElementsByTagName("head")[0].appendChild(
-                fileElem);
+            document.getElementsByTagName("head")[0].appendChild(fileElem);
         }
     };
     self.getFileInHead = function(filename, filetype) {
         var theElem, theAttr, possibleFiles;
         //determine element type to create nodelist from
-        theElem = (filetype === "js") ? "script" : (filetype ===
-            "css") ? "link" : "none";
+        theElem = (filetype === "js") ? "script" : (filetype === "css") ? "link" : "none";
         //determine corresponding attribute to test for
-        theAttr = (filetype === "js") ? "src" : (filetype === "css") ?
-            "href" : "none";
+        theAttr = (filetype === "js") ? "src" : (filetype === "css") ? "href" : "none";
         possibleFiles = document.getElementsByTagName(theElem);
         //search backwards within nodelist for matching elements to remove        
         for (var i = possibleFiles.length; i >= 0; i--) {
-            if (possibleFiles[i] && possibleFiles[i].getAttribute(
-                theAttr) != null && possibleFiles[i].getAttribute(
-                theAttr).indexOf(filename) != -1) {
+            if (possibleFiles[i] && possibleFiles[i].getAttribute(theAttr) != null &&
+                possibleFiles[i].getAttribute(theAttr).indexOf(filename) != -1) {
                 return possibleFiles[i]; //return file
             }
         }
@@ -77,16 +73,13 @@ define(['MainCore'], function(ImagesInc_Core) {
         if (foundedFile) {
             foundedFile.parentNode.removeChild(foundedFile); //remove element 
         } else {
-            ImagesInc_Core.log(2,
-                'File could not be found in the head; from Remove_JS_CSS'
-            );
+            ImagesInc_Core.log(2, 'File could not be found in the head; from Remove_JS_CSS');
         }
     };
     self.checkIfArray = function(objToCheck) {
         // if not supported isArray is not supported natively, then use the old fashion way of checking
         Array.isArray = Array.isArray || function(obj) {
-            Object.prototype.toString.call(obj) ===
-                "[object Array]";
+            Object.prototype.toString.call(obj) === "[object Array]";
         };
         return Array.isArray(objToCheck);
     };
@@ -111,12 +104,9 @@ define(['MainCore'], function(ImagesInc_Core) {
                 object[name] = function(name, method) {
                     return function() {
                         if (self.testLocalStorage()) {
-                            return method.apply(this,
-                                arguments);
+                            return method.apply(this, arguments);
                         } else {
-                            ImagesInc_Core.log(3,
-                                'LocalStorage is not availble!, from ' +
-                                name, 'orange');
+                            ImagesInc_Core.log(3, 'LocalStorage is not availble!, from ' + name, 'orange');
                             return false;
                         }
                     };
@@ -124,6 +114,7 @@ define(['MainCore'], function(ImagesInc_Core) {
             }
         }
     };
+    // not used?
     self.mergePropertiesOfObjects = function(obj1, obj2) {
         var tempObj = {},
             propName;
@@ -138,8 +129,7 @@ define(['MainCore'], function(ImagesInc_Core) {
     // attach the clone function to Object prototype
     self.initialize = function() {
         Object.prototype.clone = self.clone;
-        ImagesInc_Core.log(1,
-            "Utilities Module has been initialized...", "blue");
+        ImagesInc_Core.log(1, "Utilities Module has been initialized...", "blue");
     };
     // register with MainCore 
     self.register = (function() {

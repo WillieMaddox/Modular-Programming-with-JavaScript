@@ -49,21 +49,17 @@ define(['MainCore'], function(ImagesInc_Core) {
         }
         return null;
     };
-    self.resetCookieLifeSpan = function(cookieName, lifeSpan,
-        Opt_decodeFlag) {
+    self.resetCookieLifeSpan = function(cookieName, lifeSpan, Opt_decodeFlag) {
         self.createCookie(cookieName, self.getCookieValueAsString(
-                cookieName, Opt_decodeFlag), lifeSpan, null,
+            cookieName, Opt_decodeFlag), lifeSpan, null,
             null, null, Opt_decodeFlag);
     };
     // creates the cookie if it doesn't exist, if it does, then adds the value to the cookie
-    self.populateCookie = function(cookieName, value, duration,
-        Opt_encodeFlag) {
+    self.populateCookie = function(cookieName, value, duration, Opt_encodeFlag) {
         var cookieLife = null,
             encode_decodeFlag;
         if (!cookieName || !value) {
-            ImagesInc_Core.log(3,
-                'Missing parameters for populateCookie method.'
-            );
+            ImagesInc_Core.log(3, 'Missing parameters for populateCookie method.');
             return false;
         }
         encode_decodeFlag = self.getEncode_Decode(Opt_encodeFlag);
@@ -74,40 +70,32 @@ define(['MainCore'], function(ImagesInc_Core) {
             cookieLifeSpan === ""; // create session cookie
         }
         // if the cookie doesn't exit, create it with the value passed
-        if (!self.getCookieValueAsString(cookieName,
-            encode_decodeFlag)) {
-            self.createCookie(cookieName, value, cookieLifeSpan,
-                null, domainValue, null, encode_decodeFlag);
+        if (!self.getCookieValueAsString(cookieName, encode_decodeFlag)) {
+            self.createCookie(cookieName, value, cookieLifeSpan, null, domainValue, null, encode_decodeFlag);
         } else { //if the cookie exists, add the new value to the other values for the cookie, if not duplicate
             // if the value was not added to the cookie
-            if (!self.addValueToCookie(cookieName, value,
-                cookieLife)) {
+            if (!self.addValueToCookie(cookieName, value, cookieLife)) {
                 return false;
             }
         }
         return true;
     };
-    //Adds a value to the cookie, If the cookie does not exit, it retuns null, if it does not have the value, returns false
+    //Adds a value to the cookie, If the cookie does not exit, it retuns null,
+    // if it does not have the value, returns false
     self.addValueToCookie = function(cookieName, value, Opt_encodeFlag) {
         if (!cookieName || !value) {
-            ImagesInc_Core.log(3,
-                'Missing parameters for addValueToCookie method.'
-            );
+            ImagesInc_Core.log(3, 'Missing parameters for addValueToCookie method.');
             return false;
         }
         var valueInCookie = null,
             cookieValueStr, encode_decodeFlag;
         encode_decodeFlag = self.getEncode_Decode(Opt_encodeFlag);
-        valueInCookie = self.findValueInCookie(cookieName, value,
-            encode_decodeFlag);
+        valueInCookie = self.findValueInCookie(cookieName, value, encode_decodeFlag);
         //if didn't find the value in the cookie but the cookie does exist, then add the value to the cookie
         if (valueInCookie === false) {
-            cookieValueStr = self.getCookieValueAsString(cookieName,
-                encode_decodeFlag);
+            cookieValueStr = self.getCookieValueAsString(cookieName, encode_decodeFlag);
             cookieValueStr += self.getCookieDelimiter() + value;
-            self.createCookie(cookieName, cookieValueStr,
-                cookieLifeSpan, null, null, null,
-                encode_decodeFlag);
+            self.createCookie(cookieName, cookieValueStr, cookieLifeSpan, null, null, null, encode_decodeFlag);
             return true;
         } else if (valueInCookie === null) { // if the cookie does not exist
             return null;
@@ -117,23 +105,19 @@ define(['MainCore'], function(ImagesInc_Core) {
     };
     self.findValueInCookie = function(cookieName, value, Opt_decodeFlag) {
         if (!cookieName || !value) {
-            ImagesInc_Core.log(3,
-                'Missing parameters for findValueInCookie method.'
-            );
+            ImagesInc_Core.log(3, 'Missing parameters for findValueInCookie method.');
             return false;
         }
         var valueArray = null,
             indexValue, encode_decodeFlag;
         encode_decodeFlag = self.getEncode_Decode(Opt_decodeFlag);
         //if the cookie exists, then get all the values from the string
-        valueArray = self.getCookieValueAsArray(cookieName,
-            encode_decodeFlag);
+        valueArray = self.getCookieValueAsArray(cookieName, encode_decodeFlag);
         cookieValueArray = null;
         if (valueArray) {
             for (var i = 0; i < valueArray.length; i++) {
                 indexValue = valueArray[i];
-                if (indexValue.substring(0, indexValue.length) ===
-                    value) {
+                if (indexValue.substring(0, indexValue.length) === value) {
                     cookieValueArray = valueArray;
                     return true; // the value exists in the cookie
                 }
@@ -145,8 +129,7 @@ define(['MainCore'], function(ImagesInc_Core) {
         }
     };
     // adds a cookie to the browser with the specified name, value and expiry date
-    self.createCookie = function(cookieName, value, Opt_days, Opt_path,
-        Opt_domain, Opt_secureFlag, Opt_encodeFlag) {
+    self.createCookie = function(cookieName, value, Opt_days, Opt_path, Opt_domain, Opt_secureFlag, Opt_encodeFlag) {
         var expires = null,
             secure = null,
             domainName = null,
@@ -154,8 +137,7 @@ define(['MainCore'], function(ImagesInc_Core) {
             cookieStr = null,
             encode_decodeFlag;
         if (!cookieName || !value && value !== "") {
-            ImagesInc_Core.log(3,
-                'Missing parameters for createCookie method.');
+            ImagesInc_Core.log(3, 'Missing parameters for createCookie method.');
             return false;
         }
         encode_decodeFlag = self.getEncode_Decode(Opt_encodeFlag);
@@ -167,8 +149,7 @@ define(['MainCore'], function(ImagesInc_Core) {
         }
         if (Opt_days) {
             var date = new Date();
-            date.setTime(date.getTime() + (Opt_days * 24 * 60 * 60 *
-                1000));
+            date.setTime(date.getTime() + (Opt_days * 24 * 60 * 60 * 1000));
             expires = "expires=" + date.toGMTString() + "; ";
         } else {
             // create session cookie
@@ -189,16 +170,13 @@ define(['MainCore'], function(ImagesInc_Core) {
         } else {
             secure = "";
         }
-        cookieStr = cookieName + "=" + value + expires + domainName +
-            domainPath + secure;
+        cookieStr = cookieName + "=" + value + expires + domainName + domainPath + secure;
         document.cookie = cookieStr;
     };
     // returns the value string of a cookie 
     self.getCookieValueAsString = function(cookieName, Opt_decodeFlag) {
         if (!cookieName) {
-            ImagesInc_Core.log(3,
-                'No cookie name provided to getCookieValueAsString, exiting with error'
-            );
+            ImagesInc_Core.log(3, 'No cookie name provided to getCookieValueAsString, exiting with error');
             return false;
         }
         var passedCookieName = cookieName,
@@ -217,20 +195,17 @@ define(['MainCore'], function(ImagesInc_Core) {
             } else {
                 theStoredCookie = cookiesList[i];
             }
-            theDecodedCookieName = theStoredCookie.substring(0,
-                theStoredCookie.indexOf("="));
+            theDecodedCookieName = theStoredCookie.substring(0, theStoredCookie.indexOf("="));
             // removed white space from the beginning of the cookie name
             while (theDecodedCookieName.charAt(0) == ' ') {
-                theDecodedCookieName = theDecodedCookieName.substring(
-                    1, theDecodedCookieName.length);
+                theDecodedCookieName = theDecodedCookieName.substring(1, theDecodedCookieName.length);
             }
             if (theDecodedCookieName === passedCookieName) {
                 theStroedCookieValue = theStoredCookie.substring((
-                        theStoredCookie.indexOf("=") + 1),
+                    theStoredCookie.indexOf("=") + 1),
                     theStoredCookie.length);
                 if (encode_decodeFlag) {
-                    theStroedCookieValue = decodeURIComponent(
-                        theStroedCookieValue);
+                    theStroedCookieValue = decodeURIComponent(theStroedCookieValue);
                 }
                 return theStroedCookieValue;
             }
@@ -240,9 +215,7 @@ define(['MainCore'], function(ImagesInc_Core) {
     // returns the cookie value string as an array
     self.getCookieValueAsArray = function(cookieName, Opt_decodeFlag) {
         if (!cookieName) {
-            ImagesInc_Core.log(3,
-                'No cookie name provided to deleteCookie, exiting with error'
-            );
+            ImagesInc_Core.log(3, 'No cookie name provided to deleteCookie, exiting with error');
             return false;
         }
         var cookieValueStr = null,
@@ -251,12 +224,9 @@ define(['MainCore'], function(ImagesInc_Core) {
             encode_decodeFlag;
         encode_decodeFlag = self.getEncode_Decode(Opt_decodeFlag);
         // need to pull it everytime to make sure we get the latest value in the cookie
-        cookieValueStr = self.getCookieValueAsString(cookieName,
-            encode_decodeFlag);
+        cookieValueStr = self.getCookieValueAsString(cookieName, encode_decodeFlag);
         if (!cookieValueStr) {
-            ImagesInc_Core.log(2,
-                'could not find value for cookie, getCookieValueAsArray ' +
-                cookieName);
+            ImagesInc_Core.log(2, 'could not find value for cookie, getCookieValueAsArray ' + cookieName);
             return null;
         }
         // if the cookie is found, create an array from the values
@@ -276,27 +246,23 @@ define(['MainCore'], function(ImagesInc_Core) {
             return false;
         }
     };
-    //removes a specified value from the cookie, if the last value in the cookie, removes the cookie all together
-    self.removeValueByValue = function(cookieName, value,
-        Opt_decodeFlag) {
+    //removes a specified value from the cookie, if the last value in the cookie,
+    // removes the cookie all together
+    self.removeValueByValue = function(cookieName, value, Opt_decodeFlag) {
         var newValueString = "",
             valueInCookie = null,
             encode_decodeFlag;
         if (!cookieName || !value) {
-            ImagesInc_Core.log(3,
-                'Missing parameters for removeValueByValue method.'
-            );
+            ImagesInc_Core.log(3, 'Missing parameters for removeValueByValue method.');
             return false;
         }
         encode_decodeFlag = self.getEncode_Decode(Opt_decodeFlag);
-        valueInCookie = self.findValueInCookie(cookieName, value,
-            encode_decodeFlag);
+        valueInCookie = self.findValueInCookie(cookieName, value, encode_decodeFlag);
         //if didn't find the value in the cookie but the cookie does exist
         if (valueInCookie === false) {
             cookieValueArray = null;
             return false;
-        } else if (valueInCookie === null) // if the cookie does not exist
-        {
+        } else if (valueInCookie === null) {// if the cookie does not exist
             cookieValueArray = null;
             return null;
         } else { // if found cookie with values
@@ -309,10 +275,8 @@ define(['MainCore'], function(ImagesInc_Core) {
                     for (var i = 0; i < cookieValueArray.length; i++) {
                         if (cookieValueArray[i] === value) {
                             cookieValueArray.splice(i, 1);
-                            cookieValueArray = cookieValueArray.join(
-                                cookieDelimiter);
-                            self.createCookie(cookieName,
-                                cookieValueArray,
+                            cookieValueArray = cookieValueArray.join(cookieDelimiter);
+                            self.createCookie(cookieName, cookieValueArray,
                                 cookieLifeSpan, null, null,
                                 null, encode_decodeFlag);
                             cookieValueArray = null;
@@ -326,9 +290,7 @@ define(['MainCore'], function(ImagesInc_Core) {
     // delete the cookie from the browser
     self.deleteCookie = function(cookieName, Opt_decodeFlag) {
         if (!cookieName) {
-            ImagesInc_Core.log(3,
-                'No cookie name provided to deleteCookie, exiting with error'
-            );
+            ImagesInc_Core.log(3, 'No cookie name provided to deleteCookie, exiting with error');
             return false;
         }
         var encode_decodeFlag;
@@ -353,8 +315,7 @@ define(['MainCore'], function(ImagesInc_Core) {
             }
             equalSignLocation = cookie.indexOf("=");
             cookieName = cookie.slice(0, equalSignLocation);
-            encode_decodeFlag = self.getEncode_Decode(
-                Opt_decodeFlag);
+            encode_decodeFlag = self.getEncode_Decode(Opt_decodeFlag);
             if (encode_decodeFlag) {
                 cookieName = decodeURIComponent(cookieName);
             }
@@ -363,9 +324,7 @@ define(['MainCore'], function(ImagesInc_Core) {
         return true;
     };
     self.initialize = function() {
-        ImagesInc_Core.log(1,
-            'CookieHandler Module has been initialized...',
-            "blue");
+        ImagesInc_Core.log(1, 'CookieHandler Module has been initialized...', "blue");
     };
     // register with MainCore
     self.register = (function() {
@@ -391,4 +350,4 @@ define(['MainCore'], function(ImagesInc_Core) {
         getDomainCookieList: self.getDomainCookieList,
         handlerObj: self
     };
-})
+});

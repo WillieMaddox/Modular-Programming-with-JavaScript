@@ -1,8 +1,7 @@
 var ImagesInc_GlobalData = ImagesInc_GlobalData || null;
 var ImagesInc_PageSections = (function(mainModule, subModule) {
     // assigning the subModule if it is passed in and also augmenting sub-module
-    var pageSections = mainModule.pageSections = mainModule.pageSections ||
-        subModule;
+    var pageSections = mainModule.pageSections = mainModule.pageSections || subModule;
     pageSections.headerContainerDefObj = {
         sectionHTML: '<div id="logoDiv" class="logo_titleClass" >' +
             '<a href="#" id="siteLogo"><img src="Images/ImagesIncLogo.png" alt="Company Logo" style="max-height:100%;"></a>' +
@@ -19,10 +18,14 @@ var ImagesInc_PageSections = (function(mainModule, subModule) {
     };
     pageSections.footerContainerDefObj = {
         sectionHTML: '<div id="latestNews">' +
-            '<a href="#">Latest News</a>' + '</div>' +
-            '<div id="services">' + '<a href="#">Services</a>' +
-            '</div>' + '<div id="support">' +
-            '<a href="#">Support</a>' + '</div>'
+            '<a href="#">Latest News</a>' +
+            '</div>' +
+            '<div id="services">' +
+            '<a href="#">Services</a>' +
+            '</div>' +
+            '<div id="support">' +
+            '<a href="#">Support</a>' +
+            '</div>'
     };
     mainModule.getHeaderHTMLTxt = function() {
         return pageSections.headerContainerDefObj.sectionHTML;
@@ -35,6 +38,7 @@ var ImagesInc_PageSections = (function(mainModule, subModule) {
     }
     return pageSections;
 })(ImagesInc_GlobalData || {}, ImagesInc_PageSections || {}); // using Asynchronous sub-module
+
 // Using loose augmentation to augment ImagesInc_GlobalData
 // and tight augmentation to augment ImagesInc_PageSections
 (function(mainModule, subModule) {

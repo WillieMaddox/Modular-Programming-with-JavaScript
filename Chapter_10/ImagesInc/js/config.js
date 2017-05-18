@@ -24,6 +24,9 @@ require.config({
         'Base': {
             exports: 'Base'
         },
+        'SandBox': {
+            exports: 'SandBox'
+        },
         'jquery': {
             exports: 'jquery'
         },
@@ -35,11 +38,7 @@ require.config({
         },
         'MainCore': {
             deps: ['SandBox', 'jquery', 'GlobalData_Sub', 'GlobalData'],
-            exports: 'ImagesInc_Core'
-                // use this alias in the global scope and pass it to modules as dependency
-        },
-        'SandBox': {
-            exports: 'SandBox'
+            exports: 'ImagesInc_Core' // use this alias in the global scope and pass it to modules as dependency
         },
         'ImagesInc_Content': {
             deps: ['MainCore'],

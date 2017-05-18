@@ -6,31 +6,25 @@ define(['MainCore'], function(ImagesInc_Core) {
     self.initialize = function() {
         this.id = "Notification";
         ImagesInc_Core.registeredComponents.push(this);
-        ImagesInc_Core.log(1,
-            'NotificationHandler Module has been initialized...',
-            "blue");
+        ImagesInc_Core.log(1, 'NotificationHandler Module has been initialized...', "blue");
     };
     // initialize as a component 
     self.init = function() {
         ImagesInc_Core.registerForCustomEvents("Notification", {
             'support-Clicked': this.handleSupportClick
         });
-        ImagesInc_Core.log(1,
-            'NotificationHandler is listening to custom events now...',
-            'purple');
+        ImagesInc_Core.log(1, 'NotificationHandler is listening to custom events now...', 'purple');
     };
     self.destroy = function() {
         ImagesInc_Core.unregisterAllCustomEvents("Notification");
-        ImagesInc_Core.log(1,
-            'NotificationHandler has been destroyed...',
-            'purple');
+        ImagesInc_Core.log(1, 'NotificationHandler has been destroyed...', 'purple');
     };
     self.handleSupportClick = function() {
-        // name of the component when it registers itselft with core is used here
-        NotificationWidgetObj = ImagesInc_Core.getComponentByID(
-            "notificationWidget");
+        // name of the component when it registers itself with core is used here
+        NotificationWidgetObj = ImagesInc_Core.getComponentByID("notificationWidget");
         if (!NotificationWidgetObj) {
-            ImagesInc_Core.loadComponent(ImagesInc_GlobalData.getNoficationWidgetDefID(),
+            ImagesInc_Core.loadComponent(
+                ImagesInc_GlobalData.getNoficationWidgetDefID(),
                 self.renderWidget);
         } else {
             self.renderWidget();

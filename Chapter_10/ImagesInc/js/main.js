@@ -21,6 +21,6 @@ require(modulesToLoad, function(ImagesInc_Core, Logger, AjaxEngine,
     ImagesInc_Core.initializeAllComponents();
     // uncomment below if you'd like to run some unit test and then see results in the console
     // remember that running tests deletes all the cookie and localstorage values for the this app
-    //ImagesInc_Core.runAllUnitTests();
+    // ImagesInc_Core.runAllUnitTests();
     ImagesInc_Core.handlePageChange(location.pathname);
 });

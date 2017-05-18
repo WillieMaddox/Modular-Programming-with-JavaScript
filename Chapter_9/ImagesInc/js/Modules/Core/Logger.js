@@ -17,8 +17,7 @@ ImagesInc_Core.LoggingHandler = (function() {
         }
         // if in debug mode, handle errors more descriptively
         if (ImagesInc_Core.debug) {
-            var consoleFunc = (severity === 1) ? 'log' : (severity ===
-                2) ? 'warn' : 'error';
+            var consoleFunc = (severity === 1) ? 'log' : (severity === 2) ? 'warn' : 'error';
             if (colorParam) {
                 console[consoleFunc](messageParam, colorParam);
             } else {
@@ -31,9 +30,7 @@ ImagesInc_Core.LoggingHandler = (function() {
         }
     };
     self.initialize = function() {
-        ImagesInc_Core.log(1,
-            'LoggingHandler Module has been initialized...',
-            'blue');
+        ImagesInc_Core.log(1, 'LoggingHandler Module has been initialized...', 'blue');
     };
     // register with MainCore
     self.register = (function() {

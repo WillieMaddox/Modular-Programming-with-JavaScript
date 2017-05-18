@@ -12,8 +12,10 @@
         cssFile: "NotificationWidget.css",
         cssPath: "css/"
     };
-    ImagesInc_Core.saveValueToLocalStorage(ImagesInc_GlobalData.getFavouritesPageObjDefID(),
+    ImagesInc_Core.saveValueToLocalStorage(
+        ImagesInc_GlobalData.getFavouritesPageObjDefID(),
         FavouritesPageDefinition);
-    ImagesInc_Core.saveValueToLocalStorage(ImagesInc_GlobalData.getNoficationWidgetDefID(),
+    ImagesInc_Core.saveValueToLocalStorage(
+        ImagesInc_GlobalData.getNoficationWidgetDefID(),
         NotificationWidgetDefinition);
 })();

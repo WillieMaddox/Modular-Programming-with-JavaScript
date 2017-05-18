@@ -4,30 +4,24 @@
 define(['MainCore'], function(ImagesInc_Core) {
     var self = {},
         response, callbackFunc, page;
-    self.makeAjaxCall = function(apiURL, QueryStr, callBackFunction,
-        method) {
+    self.makeAjaxCall = function(apiURL, QueryStr, callBackFunction, method) {
         callbackFunc = callBackFunction;
-        self.makeAjaxCallToServer(apiURL, QueryStr, (method ||
-            "GET"), callbackFunc);
+        self.makeAjaxCallToServer(apiURL, QueryStr, (method || "GET"), callbackFunc);
     };
     self.returnResults = function(handler) {
         if (response) {
             // return the result back to the caller        
             handler(response);
         } else {
-            self.showErrorMessage(
-                'No response has been returned from the AJAX call'
-            );
+            self.showErrorMessage('No response has been returned from the AJAX call');
         }
     };
-    self.loadPageByAjax = function(elemToAttachTo, pageSrc,
-        sectionToExtractId, callbackFunc) {
+    self.loadPageByAjax = function(elemToAttachTo, pageSrc, sectionToExtractId, callbackFunc) {
         // if an id was sent then we need to extract only that piece from the loaded page
         if (sectionToExtractId) {
             pageSrc = " #" + sectionToExtractId;
         }
-        $(elemToAttachTo).load(pageSrc, function(responseText,
-            textStatus, XMLHttpRequest) {
+        $(elemToAttachTo).load(pageSrc, function(responseText, textStatus, XMLHttpRequest) {
             if (textStatus == "success") {
                 if (typeof callbackFunc === 'function') {
                     callbackFunc();
@@ -35,9 +29,7 @@ define(['MainCore'], function(ImagesInc_Core) {
                 return true;
             }
             if (textStatus == "error") {
-                self.showErrorMessage(
-                    'Ajax load has failed from loadPage method.'
-                );
+                self.showErrorMessage('Ajax load has failed from loadPage method.');
                 return false;
             }
         });
@@ -46,9 +38,7 @@ define(['MainCore'], function(ImagesInc_Core) {
         $.getJSON(url, function(data) {
             callbackFunc(data);
         }).fail(function() {
-            self.showErrorMessage(
-                'Was not able to load page, from loadJSON method'
-            );
+            self.showErrorMessage('Was not able to load page, from loadJSON method');
         });
     };
     self.makeAjaxCallToServer = function(url, theQuery, method, handler) {
@@ -75,38 +65,30 @@ define(['MainCore'], function(ImagesInc_Core) {
                 var errorMsg;
                 switch (type) {
                     case 'abort':
-                        errorMsg =
-                            'AJAX call has been aborted';
+                        errorMsg = 'AJAX call has been aborted';
                         return;
                     case 'timeout':
-                        errorMsg =
-                            'AJAX call has timedout';
+                        errorMsg = 'AJAX call has timedout';
                         break;
                     case 'notmodified':
-                        errorMsg =
-                            'AJAX call has been notmodified';
+                        errorMsg = 'AJAX call has been notmodified';
                         break;
                     case 'parseerror':
-                        errorMsg =
-                            'AJAX Engine parse error';
+                        errorMsg = 'AJAX Engine parse error';
                         break;
                     default:
-                        errorMsg =
-                            'A general error in AjaxEngine';
+                        errorMsg = 'A general error in AjaxEngine';
                 }
-                self.showErrorMessage(errorMsg +
-                    errorThrown);
+                self.showErrorMessage(errorMsg + errorThrown);
             },
             fail: function(msg) {
-                self.showErrorMessage(
-                    'Failure in AjaxEngine ' + msg);
+                self.showErrorMessage('Failure in AjaxEngine ' + msg);
             }
         }).done(function() {
             // after the ajax call has returned values, call the function to return it to the caller
             self.returnResults(handler);
         }).always(function() {
-            self.showInfoMessage("Ajax call was initiated",
-                "orange");
+            self.showInfoMessage("Ajax call was initiated", "orange");
         });
     };
     self.showErrorMessage = function(message, color) {
@@ -126,8 +108,7 @@ define(['MainCore'], function(ImagesInc_Core) {
         }
     };
     self.initialize = function() {
-        self.showInfoMessage(
-            'AjaxEngine Module has been initialized...');
+        self.showInfoMessage('AjaxEngine Module has been initialized...');
     };
     // register with MainCore
     self.register = (function() {
